@@ -661,4 +661,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-/reference_programs/ramasort
+# exclude Visual Studio Code folder
+.vscode
+
+# exclude Clion folder
+.idea
