@@ -1,14 +1,18 @@
 #Memory in KB
 MEMORY = 102400
-N = 10000000000000
-RAMA = ramasort
+N = 1000000
+RAMASORT = ramasort
+RAMANUJAN = ramanujan
 CC = gcc
 CFLAGS = -O -Wall
 
 SOURCES = ramasort.c ramanujan.c Makefile
 
-bench: $(RAMA)
-	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(RAMA) $(N)
+bench-ramasort: $(RAMASORT)
+	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(RAMASORT) $(N)
+
+bench-ramanujan: $(RAMANUJAN)
+	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(RAMANUJAN) $(N)
 
 clean:
 	rm ramasort ramanujan
