@@ -2,8 +2,9 @@
 
 Assignment for lecture efficient programs WS22
 
+## Installation and Setup
 
-### Cmake Installation Instructions on TU Server
+### Cmake installation on TU server
 
 1. Download cmake installation [script](https://cmake.org/download/) with wget: 
 ```console
