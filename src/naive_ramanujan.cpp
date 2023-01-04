@@ -8,29 +8,24 @@ int cube(int n) {
 }
 
 std::vector<int> generate_ramanujan_numbers(unsigned int limit) {
-    std::vector<int> ramanujan_candidates;
-    ramanujan_candidates.reserve(limit * limit);
+    std::set<int> ramanujan_candidates;
+    std::vector<int> ramanujan_numbers;
     for (size_t i = 0; i < limit; i++) {
         for (size_t j = i + 1; j < limit; j++) {
-            auto res = cube(i) + cube(j);
-            ramanujan_candidates.push_back(res);
+            auto num = cube(i) + cube(j);
+            auto res = ramanujan_candidates.insert(num);
+            if (!res.second) {
+                ramanujan_numbers.push_back(num);
+            }
         }
     }
-    return ramanujan_candidates;
+    return ramanujan_numbers;
 }
 
-int main() {
-    const unsigned int N = 30;
-    auto ramanujan_candidates = generate_ramanujan_numbers(N);
-    std::set<int> uniques;
-    std::vector<int> rama_numbers;
-    for (auto &i: ramanujan_candidates) {
-        auto res = uniques.insert(i);
-        if (!res.second) {
-            rama_numbers.push_back(i);
-        }
-    }
-    std::cout << "Ramanujan numbers up to " << N << ": " << rama_numbers.size() << std::endl;
-
+int main(int argc, char *argv[]) {
+    // parse argument for limit N
+    auto N = std::stol(argv[1], nullptr, 10);
+    auto ramanujans = generate_ramanujan_numbers(N);
+    std::cout << "Ramanujan numbers up to " << N << ": " << ramanujans.size() << std::endl;
     return 0;
 }
