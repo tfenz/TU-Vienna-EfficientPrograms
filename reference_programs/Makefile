@@ -4,7 +4,7 @@ N = 1000000
 RAMASORT = ramasort
 RAMANUJAN = ramanujan
 CC = gcc
-CFLAGS = -O -Wall
+CFLAGS = -O3 -Wall
 
 SOURCES = ramasort.c ramanujan.c Makefile
 
