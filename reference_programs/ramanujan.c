@@ -72,7 +72,7 @@ int main(int argc, char **argv)
       if (*sumnodepp != NULL) {
         (*sumnodepp)->count++;
         if ((*sumnodepp)->count==2) { /* don't count additional hits */
-          //count++;
+          count++;
           checksum+=sum;
         }
       } else {
