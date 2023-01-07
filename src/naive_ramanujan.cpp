@@ -14,12 +14,12 @@ result_type generate_ramanujan_numbers(unsigned long n) {
     std::set<unsigned long> ramanujan_candidates;
     std::vector<unsigned long> ramanujan_numbers;
 
-    for (size_t i = 0; cube(i) <= n; i++) {
-        for (size_t j = i + 1; cube(i) + cube(j) <= n; j++) {
-            auto num = cube(i) + cube(j);
-            auto res = ramanujan_candidates.insert(num);
+    for (unsigned long i = 0; cube(i) <= n; i++) {
+        for (unsigned long j = i + 1; cube(i) + cube(j) <= n; j++) {
+            auto sum = cube(i) + cube(j);
+            auto res = ramanujan_candidates.insert(sum);
             if (!res.second) {
-                ramanujan_numbers.push_back(num);
+                ramanujan_numbers.push_back(sum);
             }
         }
     }
