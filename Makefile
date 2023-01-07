@@ -10,7 +10,7 @@ SRC_DIR = ./src/
 bench-naive_ramanujan: $(NAIVERAMA)
 	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(NAIVERAMA) $(N)
 
-bench-naive_ramanujan: $(CACHE_SET_RAMANUJAN)
+bench-cache_set_ramanujan: $(CACHE_SET_RAMANUJAN)
 	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(CACHE_SET_RAMANUJAN) $(N)
 
 
