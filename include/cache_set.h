@@ -82,7 +82,7 @@ cache_set<ramanujan_candidate>::cache_set(unsigned long ramanujan_limit_n,
 
 template<typename ramanujan_candidate>
 void cache_set<ramanujan_candidate>::init_cache_sections() {
-    this->num_cache_buckets = 100000; //std::ceil(this->ramanujan_limit_n / cache_line_size);
+    this->num_cache_buckets = std::ceil(this->ramanujan_limit_n / cache_line_size);
     this->initial_bucket_size = std::ceil(this->ramanujan_candidates_bound / this->num_cache_buckets);
     if (this->num_cache_buckets == 0) {
         this->num_cache_buckets = 10;

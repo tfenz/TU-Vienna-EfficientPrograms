@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-
+    std::cout << "Number of buckets: " << cache.get_num_cache_buckets() << std::endl;
     std::cout << cache.get_ramanujan_numbers_count()
               << " Ramanujan numbers up to "
               << cache.get_ramanujan_limit_n()
