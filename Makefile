@@ -4,7 +4,7 @@ N = 1000000
 NAIVERAMA = naive_ramanujan
 CACHE_SET_RAMANUJAN = cache_set_ramanujan
 CXX = g++
-CFLAGS = -O3 -Wall
+CFLAGS = -std=c++17 -O3 -Wall
 SRC_DIR = ./src/
 
 bench-naive_ramanujan: $(NAIVERAMA)
