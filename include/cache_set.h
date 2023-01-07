@@ -81,48 +81,35 @@ cache_set<ramanujan_candidate>::cache_set(unsigned long ramanujan_limit_n,
 template<typename ramanujan_candidate>
 void cache_set<ramanujan_candidate>::init_cache_sections() {
     this->num_cache_buckets = std::ceil(this->ramanujan_limit_n / cache_line_size);
-    this->initial_bucket_size = this->ramanujan_candidates_bound / 2; // divisor changed from this->num_cache_buckets;
+    this->initial_bucket_size = this->ramanujan_candidates_bound / this->num_cache_buckets;
     if (this->num_cache_buckets == 0) {
         this->num_cache_buckets = 10;
     }
     this->caches.reserve(num_cache_buckets);
     for (size_t i = 0; i < this->caches.capacity(); ++i) {
-        this->caches.push_back(std::vector<ramanujan_candidate>(this->initial_bucket_size, ramanujan_candidate{}));
-        // this->caches[i].reserve(this->initial_bucket_size);
+        this->caches.push_back(std::vector<ramanujan_candidate>{});
+        this->caches[i].reserve(this->initial_bucket_size);
     }
 }
 
 template<typename ramanujan_candidate>
 void cache_set<ramanujan_candidate>::insert(ramanujan_candidate candidate) {
     auto cache_bucket_idx = candidate.value % this->num_cache_buckets;
-    auto bucket_idx = candidate.value % this->initial_bucket_size;
-    if (this->caches[cache_bucket_idx][bucket_idx].value == candidate.value) {
-        this->caches[cache_bucket_idx][bucket_idx].count++;
-        if (this->caches[cache_bucket_idx][bucket_idx].count == 2) {
+    // search through bucket, if value is already stored -> increase count
+    for (size_t i = 0; i < this->caches[cache_bucket_idx].size(); ++i) {
+        if (this->caches[cache_bucket_idx][i].value == candidate.value) {
+            caches[cache_bucket_idx][i].count++;
+            if (this->caches[cache_bucket_idx][i].count == 2) {
                 this->checksum += candidate.value;
                 this->ramanujan_numbers_count += 1;
             }
             return;
+        }
     }
 
     candidate.count++;
-    this->caches[cache_bucket_idx][bucket_idx] = candidate;
+    this->caches[cache_bucket_idx].push_back(candidate);
     this->size++;
-    // search through bucket, if value is already stored -> increase count
-    // for (size_t i = 0; i < this->caches[cache_bucket_idx].size(); ++i) {
-    //     if (this->caches[cache_bucket_idx][i].value == candidate.value) {
-    //         caches[cache_bucket_idx][i].count++;
-    //         if (this->caches[cache_bucket_idx][i].count == 2) {
-    //             this->checksum += candidate.value;
-    //             this->ramanujan_numbers_count += 1;
-    //         }
-    //         return;
-    //     }
-    // }
-
-    // candidate.count++;
-    // this->caches[cache_bucket_idx].push_back(candidate);
-    // this->size++;
 }
 
 template<typename ramanujan_candidate>
