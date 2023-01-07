@@ -4,15 +4,15 @@
 #include <utility>
 #include <algorithm>
 
-int cube(int n) {
+unsigned long cube(unsigned long n) {
     return n * n * n;
 }
 
-using result_type = std::pair<std::set<int>, std::vector<int>>;
+using result_type = std::pair<std::set<unsigned long>, std::vector<unsigned long>>;
 
-result_type generate_ramanujan_numbers(unsigned int n) {
-    std::set<int> ramanujan_candidates;
-    std::vector<int> ramanujan_numbers;
+result_type generate_ramanujan_numbers(unsigned long n) {
+    std::set<unsigned long> ramanujan_candidates;
+    std::vector<unsigned long> ramanujan_numbers;
 
     for (size_t i = 0; cube(i) <= n; i++) {
         for (size_t j = i + 1; cube(i) + cube(j) <= n; j++) {
@@ -32,8 +32,8 @@ int main(int argc, char *argv[]) {
     auto [candidates, ramanujans] = generate_ramanujan_numbers(N);
 
     std::cout << "Ramanujan numbers up to " << N << ": " << ramanujans.size() << std::endl;
-    auto memory_usage = sizeof(std::vector<int>) + (sizeof(int) * ramanujans.size());
-    memory_usage += sizeof(std::set<int>) + (sizeof(int) * candidates.size());
+    auto memory_usage = sizeof(std::vector<unsigned long>) + (sizeof(unsigned long) * ramanujans.size());
+    memory_usage += sizeof(std::set<unsigned long>) + (sizeof(unsigned long) * candidates.size());
     std::cout << "Memory usage: >=" << memory_usage;
     return 0;
 }
