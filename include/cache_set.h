@@ -57,6 +57,8 @@ public:
 
     unsigned long get_checksum();
 
+    size_t get_capacity();
+
     unsigned long get_ramanujan_numbers_count();
 
     std::vector<std::vector<ramanujan_candidate>> get_cache_buckets();
@@ -110,6 +112,15 @@ void cache_set<ramanujan_candidate>::insert(ramanujan_candidate candidate) {
     candidate.count++;
     this->caches[cache_bucket_idx].push_back(candidate);
     this->size++;
+}
+
+template<typename ramanujan_candidate>
+size_t cache_set<ramanujan_candidate>::get_capacity() {
+    auto capacity = 0;
+    for (auto &cache_buckets: this->caches) {
+        capacity += cache_buckets.capacity();
+    }
+    return capacity;
 }
 
 template<typename ramanujan_candidate>

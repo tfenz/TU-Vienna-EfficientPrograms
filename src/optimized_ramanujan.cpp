@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
               << " Ramanujan numbers up to "
               << cache.get_ramanujan_limit_n()
               << ", checksum=" << cache.get_checksum() << std::endl;
-    auto memory_usage = sizeof(cache_set<ramanujan_candidate>) + (sizeof(ramanujan_candidate) * cache.get_size());
+    auto memory_usage = sizeof(cache_set<ramanujan_candidate>) + (sizeof(ramanujan_candidate) * cache.get_capacity());
     std::cout << "Memory usage> >=" << memory_usage << std::endl;
     return 0;
 }
