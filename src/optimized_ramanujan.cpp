@@ -21,13 +21,12 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    std::cout << "Ramanujan candidate bound: " << cache.get_ramanujan_candidate_bound() << std::endl;
-    std::cout << "Ramanujan limit N: " << cache.get_ramanujan_limit_n() << std::endl;
-    std::cout << "Ramanujan numbers found: " << cache.get_ramanujan_numbers_count() << std::endl;
-    std::cout << "Num buckets: " << cache.get_num_cache_buckets() << std::endl;
-    std::cout << "Cache line size: " << cache.get_cache_line_size() << std::endl;
-    std::cout << "Cache Set size: " << cache.get_size() << std::endl;
-    std::cout << "Checksum: " << cache.get_checksum() << std::endl;
 
+    std::cout << cache.get_ramanujan_numbers_count()
+              << " Ramanujan numbers up to "
+              << cache.get_ramanujan_limit_n()
+              << ", checksum=" << cache.get_checksum() << std::endl;
+    auto memory_usage = sizeof(cache_set<ramanujan_candidate>) + (sizeof(ramanujan_candidate) * cache.get_size());
+    std::cout << "Memory usage> >=" << memory_usage << std::endl;
     return 0;
 }
