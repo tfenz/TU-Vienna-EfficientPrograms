@@ -9,7 +9,13 @@
 #ifndef RAMANUJAN_NUMBERS_CACHE_SET_H
 #define RAMANUJAN_NUMBERS_CACHE_SET_H
 
-template<typename T>
+
+struct ramanujan_candidate {
+    unsigned long value{};
+    short count{};
+};
+
+template<typename ramanujan_candidate>
 class cache_set {
 private:
     // N := limit of ramanujan number calculation
@@ -28,14 +34,14 @@ private:
     // number of cache buckets -> cache_buckets = this->ramanujan_limit_n / cache_line_size
     size_t num_cache_buckets{};
     // cache indexer
-    std::vector<std::vector<T> *> caches{};
+    std::vector<std::vector<ramanujan_candidate>> caches{};
 
     void init_cache_sections();
 
 public:
     cache_set(unsigned long ramanujan_candidates_bound, long long cache_line_size);
 
-    void insert(T value);
+    void insert(ramanujan_candidate value);
 
     size_t get_size();
 
@@ -51,16 +57,16 @@ public:
 
     unsigned long get_ramanujan_numbers_count();
 
-    std::vector<std::vector<T> *> get_cache_buckets();
+    std::vector<std::vector<ramanujan_candidate>> get_cache_buckets();
 };
 
-template<typename T>
-size_t cache_set<T>::get_num_cache_buckets() {
+template<typename ramanujan_candidate>
+size_t cache_set<ramanujan_candidate>::get_num_cache_buckets() {
     return this->num_cache_buckets;
 }
 
-template<typename T>
-cache_set<T>::cache_set(unsigned long ramanujan_limit_n,
+template<typename ramanujan_candidate>
+cache_set<ramanujan_candidate>::cache_set(unsigned long ramanujan_limit_n,
                         long long cache_line_size) {
     this->ramanujan_limit_n = ramanujan_limit_n;
     this->cache_line_size = cache_line_size;
@@ -70,31 +76,45 @@ cache_set<T>::cache_set(unsigned long ramanujan_limit_n,
     this->init_cache_sections();
 }
 
-template<typename T>
-void cache_set<T>::init_cache_sections() {
+template<typename ramanujan_candidate>
+void cache_set<ramanujan_candidate>::init_cache_sections() {
     this->num_cache_buckets = std::ceil(this->ramanujan_limit_n / cache_line_size);
+    if (this->num_cache_buckets == 0) {
+        this->num_cache_buckets = 10;
+    }
     this->caches.reserve(num_cache_buckets);
     for (size_t i = 0; i < this->caches.capacity(); ++i) {
-        this->caches.push_back(new std::vector<T>);
-        this->caches[i]->reserve(this->ramanujan_candidates_bound);
+        this->caches.push_back(std::vector<ramanujan_candidate>{});
+        this->caches[i].reserve(this->ramanujan_candidates_bound);
     }
 }
 
-template<typename T>
-void cache_set<T>::insert(T value) {
-    auto cache_bucket_idx = value % this->num_cache_buckets;
-    auto bucket = this->caches[cache_bucket_idx];
-    bucket->push_back(value);
+template<typename ramanujan_candidate>
+void cache_set<ramanujan_candidate>::insert(ramanujan_candidate candidate) {
+    auto cache_bucket_idx = candidate.value % this->num_cache_buckets;
+    // search through bucket, if value is already stored -> increase count
+    for (int i = 0; i < this->caches[cache_bucket_idx].size(); ++i) {
+        if (this->caches[cache_bucket_idx][i].value == candidate.value) {
+            caches[cache_bucket_idx][i].count++;
+            if (caches[cache_bucket_idx][i].count == 2) {
+                this->checksum += candidate.value;
+                this->ramanujan_numbers_count += 1;
+            }
+            return;
+        }
+    }
+    candidate.count++;
+    this->caches[cache_bucket_idx].push_back(candidate);
     this->size++;
 }
 
-template<typename T>
-size_t cache_set<T>::get_size() {
+template<typename ramanujan_candidate>
+size_t cache_set<ramanujan_candidate>::get_size() {
     return this->size;
 }
 
-template<typename T>
-std::vector<std::vector<T> *> cache_set<T>::get_cache_buckets() {
+template<typename ramanujan_candidate>
+std::vector<std::vector<ramanujan_candidate>> cache_set<ramanujan_candidate>::get_cache_buckets() {
     return this->caches;
 }
 
