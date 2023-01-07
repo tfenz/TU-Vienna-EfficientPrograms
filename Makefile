@@ -1,6 +1,6 @@
 #Memory in KB
-MEMORY = 9000000
-N = 10000000000000
+MEMORY = 1800000
+N = 1000000000000
 NAIVERAMA = naive_ramanujan
 CACHE_SET_RAMANUJAN = cache_set_ramanujan
 CXX = g++
