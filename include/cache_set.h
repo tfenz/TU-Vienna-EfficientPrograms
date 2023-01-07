@@ -12,7 +12,7 @@
 
 struct ramanujan_candidate {
     unsigned long value{};
-    short count{};
+    char count{};
 };
 
 template<typename ramanujan_candidate>
