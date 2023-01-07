@@ -30,8 +30,8 @@ int main(int argc, char *argv[]) {
     // parse argument for limit N
     auto N = std::stol(argv[1], nullptr, 10);
     auto [candidates, ramanujans] = generate_ramanujan_numbers(N);
-
-    std::cout << "Ramanujan numbers up to " << N << ": " << ramanujans.size() << std::endl;
+    unsigned long checksum = 0;
+    std::cout << ramanujans.size() << " Ramanujan numbers up to " << N << ", checksum=" << checksum << std::endl;
     auto memory_usage = sizeof(std::vector<unsigned long>) + (sizeof(unsigned long) * ramanujans.size());
     memory_usage += sizeof(std::set<unsigned long>) + (sizeof(unsigned long) * candidates.size());
     std::cout << "Memory usage: >=" << memory_usage;
