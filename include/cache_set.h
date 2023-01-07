@@ -94,7 +94,7 @@ template<typename ramanujan_candidate>
 void cache_set<ramanujan_candidate>::insert(ramanujan_candidate candidate) {
     auto cache_bucket_idx = candidate.value % this->num_cache_buckets;
     // search through bucket, if value is already stored -> increase count
-    for (int i = 0; i < this->caches[cache_bucket_idx].size(); ++i) {
+    for (size_t i = 0; i < this->caches[cache_bucket_idx].size(); ++i) {
         if (this->caches[cache_bucket_idx][i].value == candidate.value) {
             caches[cache_bucket_idx][i].count++;
             if (caches[cache_bucket_idx][i].count == 2) {
