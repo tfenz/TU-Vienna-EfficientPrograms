@@ -11,6 +11,7 @@ int main(int argc, char *argv[]) {
     unsigned long N = std::stol(argv[1], nullptr, 10);
 
     cache_set<ramanujan_candidate> cache(N, 100000);
+    std::cout << "Number of buckets: " << cache.get_num_cache_buckets() << std::endl;
 
     for (unsigned long i = 0; cube(i) <= N; i++) {
         for (unsigned long j = i + 1; cube(i) + cube(j) <= N; j++) {
@@ -21,7 +22,6 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    std::cout << "Number of buckets: " << cache.get_num_cache_buckets() << std::endl;
     std::cout << cache.get_ramanujan_numbers_count()
               << " Ramanujan numbers up to "
               << cache.get_ramanujan_limit_n()
