@@ -11,7 +11,7 @@
 
 
 struct ramanujan_candidate {
-    unsigned short value{};
+    unsigned int value{};
     char count{};
 };
 

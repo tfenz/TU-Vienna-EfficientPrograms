@@ -7,6 +7,8 @@ unsigned long cube(unsigned long n) {
 
 
 int main(int argc, char *argv[]) {
+
+
     // parse argument for limit N
     unsigned long N = std::stol(argv[1], nullptr, 10);
 
