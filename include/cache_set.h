@@ -11,8 +11,8 @@
 
 
 struct ramanujan_candidate {
-    unsigned long value{};
-    short count{};
+    unsigned short value{};
+    char count{};
 };
 
 template<typename ramanujan_candidate>
@@ -70,8 +70,7 @@ size_t cache_set<ramanujan_candidate>::get_num_cache_buckets() {
 }
 
 template<typename ramanujan_candidate>
-cache_set<ramanujan_candidate>::cache_set(unsigned long ramanujan_limit_n,
-                        long long cache_line_size) {
+cache_set<ramanujan_candidate>::cache_set(unsigned long ramanujan_limit_n, long long cache_line_size) {
     this->ramanujan_limit_n = ramanujan_limit_n;
     this->cache_line_size = cache_line_size;
     this->ramanujan_candidates_bound = std::exp(
