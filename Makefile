@@ -21,5 +21,5 @@ naive_ramanujan:
 	$(CXX) $(CFLAGS) $(SRC_DIR)naive_ramanujan.cpp -lm -o naive_ramanujan
 
 cache_set_ramanujan:
-	$(CXX) $(CFLAGS) $(SRC_DIR)naive_ramanujan.cpp -lm -o cache_set_ramanujan
+	$(CXX) $(CFLAGS) $(SRC_DIR)optimized_ramanujan.cpp -lm -o cache_set_ramanujan
 
