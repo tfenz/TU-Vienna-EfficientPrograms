@@ -28,7 +28,7 @@ private:
     // checksum
     unsigned long checksum{};
     // bucket
-    unsigned long initial_bucket_size;
+    unsigned long initial_bucket_size{};
     // cache size of the hardware
     size_t cache_line_size{};
     // stored ramanujan candidate numbers
@@ -36,7 +36,7 @@ private:
     // number of cache buckets -> cache_buckets = this->ramanujan_limit_n / cache_line_size
     size_t num_cache_buckets{};
     // cache indexer
-    std::vector<std::vector<ramanujan_candidate>> caches{};
+    std::vector<std::vector<ramanujan_candidate>> caches;
 
     void init_cache_sections();
 
@@ -56,6 +56,8 @@ public:
     unsigned long get_cache_line_size();
 
     unsigned long get_checksum();
+
+    unsigned long get_initial_bucket_size();
 
     size_t get_capacity();
 
@@ -87,8 +89,10 @@ void cache_set<ramanujan_candidate>::init_cache_sections() {
 
     this->caches.reserve(num_cache_buckets);
     for (size_t i = 0; i < this->caches.capacity(); ++i) {
-        this->caches.push_back(std::vector<ramanujan_candidate>{});
-        this->caches[i].reserve(this->initial_bucket_size);
+        auto bucket = std::vector<ramanujan_candidate>{};
+        bucket.reserve(this->initial_bucket_size);
+        this->caches.push_back(bucket);
+        //this->caches[i].reserve(this->initial_bucket_size);
     }
 }
 
@@ -156,5 +160,11 @@ template<typename T>
 unsigned long cache_set<T>::get_checksum() {
     return this->checksum;
 }
+
+template<typename ramanujan_candidate>
+unsigned long cache_set<ramanujan_candidate>::get_initial_bucket_size() {
+    return this->initial_bucket_size;
+}
+
 
 #endif //RAMANUJAN_NUMBERS_CACHE_SET_H
