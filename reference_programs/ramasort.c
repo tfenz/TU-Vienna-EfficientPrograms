@@ -14,7 +14,7 @@
 #include <assert.h>
 
 struct entry {
-  // int k,l;
+  int k,l;
   long value;
 };
 
@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 
   for (i=0; cube(i)<=n; i++) {
     for (j=i+1; cube(i)+cube(j)<=n; j++) {
-      table[m++] = (struct entry){cube(i)+cube(j)};
+      table[m++] = (struct entry){i,j,cube(i)+cube(j)};
     }
   }
   assert(m<=table_size);
