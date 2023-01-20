@@ -13,7 +13,6 @@ int main(int argc, char *argv[]) {
 
     cache_set<ramanujan_candidate> cache(N, avg_bucket_size);
     std::cout << "Number of buckets: " << cache.get_num_cache_buckets() << std::endl;
-    std::cout << "Initial bucket size: " << cache.get_initial_bucket_size() << std::endl;
 
     for (unsigned long i = 0; cube(i) <= N; i++) {
         for (unsigned long j = i + 1; cube(i) + cube(j) <= N; j++) {
