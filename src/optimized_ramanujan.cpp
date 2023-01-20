@@ -14,11 +14,6 @@ int main(int argc, char *argv[]) {
     std::cout << "Number of buckets: " << cache.get_num_cache_buckets() << std::endl;
     std::cout << "Initial bucket size: " << cache.get_initial_bucket_size() << std::endl;
 
-    auto buckets = cache.get_cache_buckets();
-    for (auto &bucket: buckets) {
-        std::cout << "Bucket size=" << bucket.size() << ", capacity=" << bucket.capacity() << std::endl;
-    }
-
     for (unsigned long i = 0; cube(i) <= N; i++) {
         for (unsigned long j = i + 1; cube(i) + cube(j) <= N; j++) {
             ramanujan_candidate candidate;
@@ -32,7 +27,7 @@ int main(int argc, char *argv[]) {
               << " Ramanujan numbers up to "
               << cache.get_ramanujan_limit_n()
               << ", checksum=" << cache.get_checksum() << std::endl;
-    auto memory_usage = sizeof(cache_set<ramanujan_candidate>) + (sizeof(ramanujan_candidate) * cache.get_capacity());
+    auto memory_usage = sizeof(cache_set<ramanujan_candidate>) + (sizeof(ramanujan_candidate) * cache.get_size());
     std::cout << "Memory usage> >=" << memory_usage << std::endl;
     return 0;
 }

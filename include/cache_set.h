@@ -36,7 +36,7 @@ private:
     // number of cache buckets -> cache_buckets = this->ramanujan_limit_n / cache_line_size
     size_t num_cache_buckets{};
     // cache indexer
-    std::vector<std::vector<ramanujan_candidate>> caches;
+    std::vector<std::vector<ramanujan_candidate>> caches{};
 
     void init_cache_sections();
 
