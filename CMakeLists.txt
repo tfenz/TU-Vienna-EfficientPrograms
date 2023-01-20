@@ -17,3 +17,4 @@ include_directories(./include)
 
 add_executable(ramanujan_numbers src/naive_ramanujan.cpp)
 add_executable(ramanujan_numbers_optimized src/optimized_ramanujan.cpp)
+add_executable(ramanujan_numbers_no_struct src/optimized_ramanujan_no_struct.cpp)
