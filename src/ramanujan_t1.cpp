@@ -6,12 +6,13 @@ long cube(long n) {
 }
 
 long hash1(long a, long candidate_bound) {
-    a = (a^0xdeadbeef) + (a<<4);
-    a = a ^ (a>>10);
-    a = a + (a<<7);
-    a = a ^ (a>>13);
+    a = (a ^ 0xdeadbeef) + (a << 4);
+    a = a ^ (a >> 10);
+    a = a + (a << 7);
+    a = a ^ (a >> 13);
     return a % candidate_bound;
 }
+
 long hash2(long a, long candidate_bound) {
     a = (a ^ 61) ^ (a >> 16);
     a = a + (a << 3);
@@ -20,38 +21,41 @@ long hash2(long a, long candidate_bound) {
     a = a ^ (a >> 15);
     return a % candidate_bound;
 }
-long hash3(long a, long candidate_bound) {
-    a = a ^ (a>>4);
-    a = (a^0xdeadbeef) + (a<<5);
-    a = a ^ (a>>11);
-    return a % candidate_bound;
+
+long hash3(long a, long bound) {
+    a = a ^ (a >> 4);
+    a = (a ^ 0xdeadbeef) + (a << 5);
+    a = a ^ (a >> 11);
+    return a % bound;
 }
-long hash4(long h, long candidate_bound) {
+
+long hash4(long h, long bound) {
     h ^= (h >> 20) ^ (h >> 12);
     h = h ^ (h >> 7) ^ (h >> 4);
-    return h % candidate_bound;
+    return h % bound;
 }
 
 int main(int argc, char **argv) {
     long n = std::stol(argv[1], nullptr, 10);
-    long bound = 1 << (long) (log((double) n) * (2.0 / (3.0 * log(2.0))));
+    long bound2 = 1 << (long) (log((double) n) * (2.0 / (3.0 * log(2.0))));
+    long bound = 4 << (long) (log((double) n) * (2.0 / (3.0 * log(2.0))));
     long *candidates = new long[bound];
     long *counts = new long[bound];
     long i, j;
     long checksum = 0;
     long count_ramanujan = 0;
 
-//    long total_collision_count = 0; //todo debug only
+    long total_collision_count = 0; //todo debug only
     for (i = 0; cube(i) <= n; i++) {
         for (j = i + 1; cube(i) + cube(j) <= n; j++) {
             long current_candidate = cube(i) + cube(j);
             long idx = hash3(current_candidate, bound);
 
-            int collision_count=0;
+            int collision_count = 0;
             while ((candidates[idx]) && candidates[idx] != current_candidate) {
-                idx = hash3(current_candidate+(++collision_count)*51679, bound);
+                idx = hash3(current_candidate + (++collision_count) * 51679, bound);
             }
-//            total_collision_count += collision_count;
+            total_collision_count += collision_count; //todo debug only
             if (!candidates[idx]) {
                 candidates[idx] = current_candidate;
                 counts[idx] = 1;
@@ -63,7 +67,7 @@ int main(int argc, char **argv) {
             }
         }
     }
-//    printf("collisioncount: %ld", total_collision_count);
+    printf("collisioncount: %ld", total_collision_count);//todo debug only
     printf("%ld Ramanujan numbers up to %ld, checksum=%ld\n size=%ld\n",
            count_ramanujan, n, checksum, bound);
     printf("Memory usage: >=%ld\n", bound * (sizeof(long *)));
