@@ -14,14 +14,11 @@ int main(int argc, char *argv[]) {
     cache_set<ramanujan_candidate> cache(N, avg_bucket_size);
     std::cout << "Number of buckets: " << cache.get_num_cache_buckets() << std::endl;
     std::cout << "Ramanujan candidate bound: " << cache.get_ramanujan_candidate_bound() << std::endl;
-    unsigned long ci = 0;
-    unsigned long cj = 1;
-    for (unsigned long i = 0; ci <= N; i++) {
-        ci = cube(i);
-        for (unsigned long j = i + 1; ci + cj <= N; j++) {
-            cj = cube(j);
+
+    for (unsigned long i = 0; cube(i) <= N; i++) {
+        for (unsigned long j = i + 1; cube(i) + cube(j) <= N; j++) {
             ramanujan_candidate candidate;
-            auto sum = ci + cj;
+            auto sum = cube(i) + cube(j);
             candidate.value = sum;
             cache.insert(candidate);
         }

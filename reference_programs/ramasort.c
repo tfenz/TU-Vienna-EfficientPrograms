@@ -14,7 +14,7 @@
 #include <assert.h>
 
 struct entry {
-  int k,l;
+  // int k,l;
   long value;
 };
 
