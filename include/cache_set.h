@@ -73,7 +73,7 @@ size_t cache_set<ramanujan_candidate>::get_num_cache_buckets() {
 
 template<typename ramanujan_candidate>
 cache_set<ramanujan_candidate>::cache_set(unsigned long ramanujan_limit_n,
-                        long long cache_line_size) {
+                                          long long cache_line_size) {
     this->ramanujan_limit_n = ramanujan_limit_n;
     this->cache_line_size = cache_line_size;
     this->ramanujan_candidates_bound = std::exp(
@@ -89,10 +89,7 @@ void cache_set<ramanujan_candidate>::init_cache_sections() {
 
     this->caches.reserve(num_cache_buckets);
     for (size_t i = 0; i < this->caches.capacity(); ++i) {
-        auto bucket = std::vector<ramanujan_candidate>{};
-        bucket.reserve(this->initial_bucket_size);
-        this->caches.push_back(bucket);
-        //this->caches[i].reserve(this->initial_bucket_size);
+        this->caches[i].reserve(this->initial_bucket_size);
     }
 }
 
@@ -165,6 +162,5 @@ template<typename ramanujan_candidate>
 unsigned long cache_set<ramanujan_candidate>::get_initial_bucket_size() {
     return this->initial_bucket_size;
 }
-
 
 #endif //RAMANUJAN_NUMBERS_CACHE_SET_H

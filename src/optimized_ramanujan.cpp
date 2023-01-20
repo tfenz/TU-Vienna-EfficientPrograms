@@ -19,14 +19,14 @@ int main(int argc, char *argv[]) {
         std::cout << "Bucket size=" << bucket.size() << ", capacity=" << bucket.capacity() << std::endl;
     }
 
-    //for (unsigned long i = 0; cube(i) <= N; i++) {
-    //    for (unsigned long j = i + 1; cube(i) + cube(j) <= N; j++) {
-    //        ramanujan_candidate candidate;
-    //        auto sum = cube(i) + cube(j);
-    //        candidate.value = sum;
-    //        cache.insert(candidate);
-    //    }
-    //}
+    for (unsigned long i = 0; cube(i) <= N; i++) {
+        for (unsigned long j = i + 1; cube(i) + cube(j) <= N; j++) {
+            ramanujan_candidate candidate;
+            auto sum = cube(i) + cube(j);
+            candidate.value = sum;
+            cache.insert(candidate);
+        }
+    }
 
     std::cout << cache.get_ramanujan_numbers_count()
               << " Ramanujan numbers up to "
