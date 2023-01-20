@@ -30,10 +30,10 @@ private:
     // bucket
     unsigned long initial_bucket_size{};
     // cache size of the hardware
-    size_t cache_line_size{};
+    size_t avg_bucket_size{};
     // stored ramanujan candidate numbers
     size_t size{};
-    // number of cache buckets -> cache_buckets = this->ramanujan_limit_n / cache_line_size
+    // number of cache buckets -> cache_buckets = this->ramanujan_limit_n / avg_bucket_size
     size_t num_cache_buckets{};
     // cache indexer
     std::vector<std::vector<ramanujan_candidate>> caches{};
@@ -41,9 +41,9 @@ private:
     void init_cache_sections();
 
 public:
-    cache_set(unsigned long ramanujan_candidates_bound, long long cache_line_size);
+    cache_set(unsigned long ramanujan_limit_n, size_t avg_bucket_size);
 
-    void insert(ramanujan_candidate value);
+    void insert(ramanujan_candidate candidate);
 
     size_t get_size();
 
@@ -73,19 +73,21 @@ size_t cache_set<ramanujan_candidate>::get_num_cache_buckets() {
 
 template<typename ramanujan_candidate>
 cache_set<ramanujan_candidate>::cache_set(unsigned long ramanujan_limit_n,
-                                          long long cache_line_size) {
+                                          size_t avg_bucket_size) {
     this->ramanujan_limit_n = ramanujan_limit_n;
-    this->cache_line_size = cache_line_size;
+    this->avg_bucket_size = avg_bucket_size;
     this->ramanujan_candidates_bound = std::exp(
             std::log((double) this->ramanujan_limit_n) * (2.0 / 3.0)) / 2 + 100;
     // initiliaze cache's buckets
     this->init_cache_sections();
 }
 
+
 template<typename ramanujan_candidate>
 void cache_set<ramanujan_candidate>::init_cache_sections() {
-    this->num_cache_buckets = std::ceil(this->ramanujan_limit_n / float(cache_line_size));
-    this->initial_bucket_size = std::ceil(this->ramanujan_candidates_bound / this->num_cache_buckets);
+    this->num_cache_buckets = std::ceil(this->ramanujan_limit_n / float(avg_bucket_size));
+    // assumption: uniform distribution
+    this->initial_bucket_size = std::ceil(this->ramanujan_candidates_bound / float(this->num_cache_buckets));
 
     this->caches.reserve(num_cache_buckets);
     for (size_t i = 0; i < this->caches.capacity(); ++i) {
@@ -145,7 +147,7 @@ unsigned long cache_set<T>::get_ramanujan_limit_n() {
 
 template<typename T>
 unsigned long cache_set<T>::get_cache_line_size() {
-    return this->cache_line_size;
+    return this->avg_bucket_size;
 }
 
 template<typename T>

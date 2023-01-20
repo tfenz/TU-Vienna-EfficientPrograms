@@ -7,10 +7,11 @@ unsigned long cube(unsigned long n) {
 
 
 int main(int argc, char *argv[]) {
-    // parse argument for limit N
+    // parse argument for limit N, avg_bucket_size
     unsigned long N = std::stol(argv[1], nullptr, 10);
+    size_t avg_bucket_size = std::stol(argv[2], nullptr, 10);
 
-    cache_set<ramanujan_candidate> cache(N, 100000);
+    cache_set<ramanujan_candidate> cache(N, avg_bucket_size);
     std::cout << "Number of buckets: " << cache.get_num_cache_buckets() << std::endl;
     std::cout << "Initial bucket size: " << cache.get_initial_bucket_size() << std::endl;
 
