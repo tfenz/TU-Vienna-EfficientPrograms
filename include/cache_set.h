@@ -38,6 +38,8 @@ private:
 
     void init_cache_sections();
 
+    size_t hash4(unsigned long candidate);
+
 public:
     cache_set(unsigned long ramanujan_limit_n, size_t avg_bucket_size);
 
@@ -63,6 +65,13 @@ public:
 };
 
 template<typename ramanujan_candidate>
+size_t cache_set<ramanujan_candidate>::hash4(unsigned long h) {
+    h ^= (h >> 20) ^ (h >> 12);
+    h = h ^ (h >> 7) ^ (h >> 4);
+    return h % this->num_cache_buckets;
+}
+
+template<typename ramanujan_candidate>
 size_t cache_set<ramanujan_candidate>::get_num_cache_buckets() {
     return this->num_cache_buckets;
 }
@@ -81,7 +90,7 @@ cache_set<ramanujan_candidate>::cache_set(unsigned long ramanujan_limit_n,
 
 template<typename ramanujan_candidate>
 void cache_set<ramanujan_candidate>::init_cache_sections() {
-    this->num_cache_buckets = std::ceil(this->ramanujan_candidates_bound/ float(this->avg_bucket_size));
+    this->num_cache_buckets = std::ceil(this->ramanujan_candidates_bound / float(this->avg_bucket_size));
 
     this->caches.reserve(this->num_cache_buckets);
     for (size_t i = 0; i < this->caches.capacity(); ++i) {
@@ -91,7 +100,7 @@ void cache_set<ramanujan_candidate>::init_cache_sections() {
 
 template<typename ramanujan_candidate>
 void cache_set<ramanujan_candidate>::insert(ramanujan_candidate candidate) {
-    auto cache_bucket_idx = candidate.value % this->num_cache_buckets;
+    auto cache_bucket_idx = this->hash4(candidate.value);//candidate.value % this->num_cache_buckets;
     // search through bucket, if value is already stored -> increase count
     for (size_t i = 0; i < this->caches[cache_bucket_idx].size(); ++i) {
         if (this->caches[cache_bucket_idx][i].value == candidate.value) {

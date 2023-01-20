@@ -1,5 +1,5 @@
 #include <iostream>
-#include "cache_set.h"
+#include "cache_set_perfect.h"
 
 unsigned long cube(unsigned long n) {
     return n * n * n;
@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
     unsigned long N = std::stol(argv[1], nullptr, 10);
     size_t avg_bucket_size = std::stol(argv[2], nullptr, 10);
 
-    cache_set<ramanujan_candidate> cache(N, avg_bucket_size);
+    cache_set_perfect<ramanujan_candidate> cache(N, avg_bucket_size);
     std::cout << "Number of buckets: " << cache.get_num_cache_buckets() << std::endl;
     std::cout << "Ramanujan candidate bound: " << cache.get_ramanujan_candidate_bound() << std::endl;
 

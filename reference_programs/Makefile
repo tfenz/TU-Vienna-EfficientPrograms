@@ -1,5 +1,5 @@
 #Memory in KB
-MEMORY = 9000000
+MEMORY = 100000
 N = 1000000000000
 RAMASORT = ramasort
 RAMANUJAN = ramanujan
