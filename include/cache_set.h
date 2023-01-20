@@ -144,6 +144,7 @@ unsigned long cache_set<T>::get_cache_line_size() {
     return this->avg_bucket_size;
 }
 
+
 template<typename T>
 unsigned long cache_set<T>::get_ramanujan_numbers_count() {
     return this->ramanujan_numbers_count;
