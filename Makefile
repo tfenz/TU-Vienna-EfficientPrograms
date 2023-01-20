@@ -1,6 +1,7 @@
 #Memory in KB
 MEMORY = 1800000
 N = 1000000000000
+BUCKET_SIZE = 1024
 NAIVERAMA = naive_ramanujan
 CACHE_SET_RAMANUJAN = cache_set_ramanujan
 CXX = g++
@@ -12,7 +13,7 @@ bench-naive_ramanujan: $(NAIVERAMA)
 	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(NAIVERAMA) $(N)
 
 bench-cache_set_ramanujan: $(CACHE_SET_RAMANUJAN)
-	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(CACHE_SET_RAMANUJAN) $(N)
+	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(CACHE_SET_RAMANUJAN) $(N) $(BUCKET_SIZE)
 
 
 clean:
