@@ -10,6 +10,9 @@ CFLAGS = -std=c++17 -O3 -Wall
 SRC_DIR = ./src/
 INCLUDE_DIR=-I./include/
 
+bench-naive_t1: $(NAIVERAMA)
+	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(NAIVERAMA) $(N)
+
 bench-naive_ramanujan: $(NAIVERAMA)
 	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(NAIVERAMA) $(N)
 
