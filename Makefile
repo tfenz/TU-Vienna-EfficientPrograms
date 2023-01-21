@@ -3,12 +3,12 @@ MEMORY = 100000
 N = 1000
 BUCKET_SIZE = 32
 
-NAIVE_HASHSET = naive_hashset
 REHASHING = ramanujan_rehashing
+THREELOOPS = 3loops
+NAIVE_HASHSET = naive_hashset
 BUCKET_HASHING = bucket_hashing
 RAMASORT_OPT = ramasort_opt
 RAMANUJAN_OPT = ramanujan_opt
-THREELOOPS = 3loops
 
 #C++ compiler flags
 CXX = g++
@@ -26,8 +26,8 @@ bench-rehashing: $(REHASHING)
 bench-3loops: $(THREELOOPS)
 	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(THREELOOPS) $(N)
 
-bench-naive_ramanujan: $(NAIVERAMA)
-	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(NAIVERAMA) $(N)
+bench-naive_ramanujan: $(NAIVE_HASHSET)
+	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(NAIVE_HASHSET) $(N)
 
 bench-bucket_hashing: $(BUCKET_HASHING)
 	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(BUCKET_HASHING) $(N) $(BUCKET_SIZE)
