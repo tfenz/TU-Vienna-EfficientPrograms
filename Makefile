@@ -25,7 +25,7 @@ INCLUDE_DIR=-I./include/
 bench-rehashing: $(REHASHING)
 	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(REHASHING) $(N)
 
-bench-rehashing: $(RAMANUJAN_2HASHSETS_UNORDERED)
+bench-2hashsets_unordered: $(RAMANUJAN_2HASHSETS_UNORDERED)
 	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(RAMANUJAN_2HASHSETS_UNORDERED) $(N)
 
 bench-3loops: $(THREELOOPS)
