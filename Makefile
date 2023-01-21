@@ -4,6 +4,7 @@ N = 1000000
 BUCKET_SIZE = 32
 
 REHASHING = ramanujan_rehashing
+RAMANUJAN_2HASHSETS_UNORDERED = ramanujan_2hashsets_unordered
 THREELOOPS = 3loops
 NAIVE_HASHSET = naive_hashset
 NAIVE_HASHSET_UNORDERED = naive_hashset_unordered
@@ -23,6 +24,9 @@ INCLUDE_DIR=-I./include/
 
 bench-rehashing: $(REHASHING)
 	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(REHASHING) $(N)
+
+bench-rehashing: $(RAMANUJAN_2HASHSETS_UNORDERED)
+	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(RAMANUJAN_2HASHSETS_UNORDERED) $(N)
 
 bench-3loops: $(THREELOOPS)
 	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(THREELOOPS) $(N)
@@ -46,6 +50,9 @@ bench-ramanujan_opt: $(RAMANUJAN_OPT)
 ramanujan_rehashing:
 	$(CXX) $(CFLAGS) $(SRC_DIR)ramanujan_rehashing.cpp -lm -o ramanujan_rehashing
 
+ramanujan_2hashsets_unordered:
+	$(CXX) $(CFLAGS) $(SRC_DIR)ramanujan_2hashsets_unordered.cpp -lm -o ramanujan_2hashsets_unordered
+
 3loops:
 	$(CXX) $(CFLAGS) $(SRC_DIR)3loops.cpp -lm -o 3loops
 
@@ -67,4 +74,4 @@ ramanujan_opt:
 
 
 clean:
-	rm ramanujan_rehashing 3loops naive_hashset naive_hashset_unordered bucket_hashing ramasort_opt ramanujan_opt
+	rm ramanujan_rehashing ramanujan_2hashsets_unordered 3loops naive_hashset naive_hashset_unordered bucket_hashing ramasort_opt ramanujan_opt
