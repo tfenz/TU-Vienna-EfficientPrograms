@@ -41,22 +41,22 @@ bench-ramanujan_opt: $(RAMANUJAN_OPT)
 
 
 naive_hashset:
-	$(CXX) $(CFLAGS) $(SRC_DIR)naive_ramanujan.cpp -lm -o naive_ramanujan
+	$(CXX) $(CFLAGS) $(SRC_DIR)naive_hashset.cpp -lm -o naive_ramanujan
 
 ramanujan_rehashing:
-	$(CXX) $(CFLAGS) $(SRC_DIR)naive_ramanujan.cpp -lm -o ramanujan_rehashing
+	$(CXX) $(CFLAGS) $(SRC_DIR)ramanujan_rehashing.cpp -lm -o ramanujan_rehashing
 
-cache_set_ramanujan:
-	$(CXX) $(CFLAGS) $(INCLUDE_DIR) $(SRC_DIR)optimized_ramanujan.cpp -lm -o cache_set_ramanujan
+bucket_hashing:
+	$(CXX) $(CFLAGS) $(INCLUDE_DIR) $(SRC_DIR)bucket_hashing.cpp -lm -o bucket_hashing
 
 ramasort_opt:
-	$(CC) $(CFLAGS) src/ramasort_opt.c -lm -o ramasort_opt
+	$(CC) $(CFLAGS) $(SRC_DIR)ramasort_opt.c -lm -o ramasort_opt
 
 ramanujan_opt:
-	$(CC) $(CFLAGS) src/ramanujan_opt.c -lm -o ramanujan_opt
+	$(CC) $(CFLAGS) $(SRC_DIR)ramanujan_opt.c -lm -o ramanujan_opt
 
 3loops:
-	$(CXX) $(CFLAGS) $(SRC_DIR)naive_ramanujan.cpp -lm -o naive_ramanujan
+	$(CXX) $(CFLAGS) $(SRC_DIR)3loops.cpp -lm -o naive_ramanujan
 
 
 clean:
