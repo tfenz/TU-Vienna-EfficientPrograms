@@ -14,7 +14,7 @@ RAMANUJAN_OPT = ramanujan_opt
 
 #C++ compiler flags
 CXX = g++
-CFLAGS = -std=c++17 -O3 -Wall
+CPPFLAGS = -std=c++17 -O3 -Wall
 
 #C compiler flags
 CC = gcc
@@ -48,22 +48,22 @@ bench-ramanujan_opt: $(RAMANUJAN_OPT)
 
 
 ramanujan_rehashing:
-	$(CXX) $(CFLAGS) $(SRC_DIR)ramanujan_rehashing.cpp -lm -o ramanujan_rehashing
+	$(CXX) $(CPPFLAGS) $(SRC_DIR)ramanujan_rehashing.cpp -lm -o ramanujan_rehashing
 
 ramanujan_2hashsets_unordered:
-	$(CXX) $(CFLAGS) $(SRC_DIR)ramanujan_2hashsets_unordered.cpp -lm -o ramanujan_2hashsets_unordered
+	$(CXX) $(CPPFLAGS) $(SRC_DIR)ramanujan_2hashsets_unordered.cpp -lm -o ramanujan_2hashsets_unordered
 
 3loops:
-	$(CXX) $(CFLAGS) $(SRC_DIR)3loops.cpp -lm -o 3loops
+	$(CXX) $(CPPFLAGS) $(SRC_DIR)3loops.cpp -lm -o 3loops
 
 naive_hashset:
-	$(CXX) $(CFLAGS) $(SRC_DIR)naive_hashset.cpp -lm -o naive_hashset
+	$(CXX) $(CPPFLAGS) $(SRC_DIR)naive_hashset.cpp -lm -o naive_hashset
 
 naive_hashset_unordered:
-	$(CXX) $(CFLAGS) $(SRC_DIR)naive_hashset_unordered.cpp -lm -o naive_hashset_unordered
+	$(CXX) $(CPPFLAGS) $(SRC_DIR)naive_hashset_unordered.cpp -lm -o naive_hashset_unordered
 
 bucket_hashing:
-	$(CXX) $(CFLAGS) $(INCLUDE_DIR) $(SRC_DIR)bucket_hashing.cpp -lm -o bucket_hashing
+	$(CXX) $(CPPFLAGS) $(INCLUDE_DIR) $(SRC_DIR)bucket_hashing.cpp -lm -o bucket_hashing
 
 ramasort_opt:
 	$(CC) $(CFLAGS) $(SRC_DIR)ramasort_opt.c -lm -o ramasort_opt
