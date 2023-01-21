@@ -16,6 +16,7 @@ endif ()
 include_directories(./include)
 
 add_executable(naive_hashset src/naive_hashset.cpp)
+add_executable(naive_hashset_unordered src/naive_hashset_unordered.cpp)
 add_executable(bucket_hashing src/bucket_hashing.cpp)
 add_executable(optimized_ramanujan_no_struct stuff/optimized_ramanujan_no_struct.cpp)
 add_executable(ramanujan_rehashing src/ramanujan_rehashing.cpp)
