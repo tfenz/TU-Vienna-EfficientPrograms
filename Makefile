@@ -26,7 +26,7 @@ bench-rehashing: $(REHASHING)
 bench-3loops: $(THREELOOPS)
 	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(THREELOOPS) $(N)
 
-bench-naive_ramanujan: $(NAIVE_HASHSET)
+bench-naive_hashset: $(NAIVE_HASHSET)
 	ulimit -S -v $(MEMORY); perf stat -e cycles -e instructions -e branch-misses -e LLC-load-misses -e LLC-store-misses ./$(NAIVE_HASHSET) $(N)
 
 bench-bucket_hashing: $(BUCKET_HASHING)
