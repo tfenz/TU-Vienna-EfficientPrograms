@@ -17,7 +17,7 @@ long hash(long h, long bound) {
 
 int main(int argc, char **argv) {
     long n = std::stol(argv[1], nullptr, 10);
-    long bound = 4 << (long) (log((double) n) * (2.0 / (3.0 * log(2.0))));
+    long bound = 1 << (long) (log((double) n) * (2.0 / (3.0 * log(2.0))));
     long *candidates = new long[bound];
     long *counts = new long[bound];
     long i, j;

@@ -43,10 +43,10 @@ ramanujan_rehashing:
 	$(CXX) $(CFLAGS) $(SRC_DIR)ramanujan_rehashing.cpp -lm -o ramanujan_rehashing
 
 3loops:
-	$(CXX) $(CFLAGS) $(SRC_DIR)3loops.cpp -lm -o naive_ramanujan
+	$(CXX) $(CFLAGS) $(SRC_DIR)3loops.cpp -lm -o 3loops
 
 naive_hashset:
-	$(CXX) $(CFLAGS) $(SRC_DIR)naive_hashset.cpp -lm -o naive_ramanujan
+	$(CXX) $(CFLAGS) $(SRC_DIR)naive_hashset.cpp -lm -o naive_hashset
 
 bucket_hashing:
 	$(CXX) $(CFLAGS) $(INCLUDE_DIR) $(SRC_DIR)bucket_hashing.cpp -lm -o bucket_hashing
@@ -60,4 +60,4 @@ ramanujan_opt:
 
 
 clean:
-	rm naive_ramanujan cache_set_ramanujan cache_set_no_struct ramasort_opt ramanujan_opt
+	rm ramanujan_rehashing 3loops naive_hashset bucket_hashing ramasort_opt ramanujan_opt
