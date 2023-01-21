@@ -22,4 +22,6 @@ add_executable(optimized_ramanujan_no_struct stuff/optimized_ramanujan_no_struct
 add_executable(ramanujan_rehashing src/ramanujan_rehashing.cpp)
 add_executable(ramanujan_2hashsets_unordered src/ramanujan_2hashsets_unordered.cpp )
 add_executable(3loops src/3loops.cpp)
+add_executable(collision_evaluation src/collision_evaluation.cpp)
+add_executable(collision_evaluation_rehashing src/collision_evaluation_rehashing.cpp)
 
