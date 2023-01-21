@@ -1,10 +1,9 @@
 #include <iostream>
-#include "cache_set.h"
+#include <math.h>
 
 long cube(long n) {
     return n * n * n;
 }
-
 
 long hash_improved(long h, long bound) {
     h ^= (h >> 20) ^ (h >> 12);
@@ -15,7 +14,6 @@ long hash_improved(long h, long bound) {
 long hash(long h, long bound) {
     return h & (bound - 1);
 }
-
 
 int main(int argc, char **argv) {
     long n = std::stol(argv[1], nullptr, 10);
