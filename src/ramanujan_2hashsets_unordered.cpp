@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include <unordered_set>
+#include <set>
 
 long cube(long n) {
     return n * n * n;
@@ -16,8 +16,8 @@ long hash_improved(long h, long bound) {
 int main(int argc, char **argv) {
     long n = std::stol(argv[1], nullptr, 10);
     long bound = 1 << (long) (log((double) n) * (2.0 / (3.0 * log(2.0))));
-    auto *candidates = new std::unordered_set<long>[bound];
-    std::unordered_set<long> rama_numbers;
+    auto *candidates = new std::set<long>[bound];
+    std::set<long> rama_numbers;
 //    long *counts = new long[bound];
     long i, j;
     long checksum = 0;
