@@ -1,6 +1,6 @@
 #Memory in KB
-MEMORY = 100000
-N = 1000
+MEMORY = 1000000
+N = 1000000
 BUCKET_SIZE = 32
 
 REHASHING = ramanujan_rehashing
