@@ -4,6 +4,7 @@
 #include <utility>
 #include <algorithm>
 #include <unordered_set>
+#include <cmath>
 
 unsigned long cube(unsigned long n) {
     return n * n * n;
@@ -13,6 +14,8 @@ using result_type = std::pair<std::unordered_set<unsigned long>, std::unordered_
 
 result_type generate_ramanujan_numbers(unsigned long n, unsigned long *checksum) {
     std::unordered_set<unsigned long> ramanujan_candidates;
+    long bound = 1 << (long) (log((double) n) * (2.0 / (3.0 * log(2.0))));
+    ramanujan_candidates.reserve(bound);
     std::unordered_set<unsigned long> ramanujan_numbers;
 
     for (unsigned long i = 0; cube(i) <= n; i++) {
