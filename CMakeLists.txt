@@ -15,7 +15,8 @@ endif ()
 
 include_directories(./include)
 
-add_executable(ramanujan_numbers src/naive_ramanujan.cpp)
-add_executable(ramanujan_numbers_optimized src/optimized_ramanujan.cpp)
-add_executable(ramanujan_numbers_no_struct src/optimized_ramanujan_no_struct.cpp)
-add_executable(ramanujan_numbers_t1 src/ramanujan_t1.cpp)
+add_executable(naive_hashset src/naive_hashset.cpp)
+add_executable(bucket_hashing src/bucket_hashing.cpp)
+add_executable(optimized_ramanujan_no_struct stuff/optimized_ramanujan_no_struct.cpp)
+add_executable(ramanujan_rehashing src/ramanujan_rehashing.cpp)
+add_executable(3loops src/3loops.cpp)
