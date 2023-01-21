@@ -48,11 +48,8 @@ long hashTomWang2(long h, long bound) {
 int main(int argc, char **argv) {
 // print header
     printf("N,");
-    printf("hash_ref,");
-    printf("hashThomasWang,");
-    printf("hashLowBitOpt,");
-    printf("hash4shift");
-    printf("\n");
+    printf("name,");
+    printf("collissions\n");
 
     for (long n = 1000000; n < 10000000000001; n *= 10) {
         long bound = 1 << (long) (log((double) n) * (2.0 / (3.0 * log(2.0))));
@@ -72,15 +69,15 @@ int main(int argc, char **argv) {
                 long current_candidate = cube(i) + cube(j);
 
                 //
-//                long idx_hash_ref = hash_ref(current_candidate, bound);
-//                int collision_count_hash_ref = 0;
-//                while ((c1[idx_hash_ref]) && c1[idx_hash_ref] != current_candidate) {
-//                    idx_hash_ref = hash_ref(current_candidate + (++collision_count_hash_ref) * 51679, bound);
-//                }
-//                total_collision_count_hash_ref += collision_count_hash_ref;
-//                if (!c1[idx_hash_ref]) {
-//                    c1[idx_hash_ref] = current_candidate;
-//                }
+                long idx_hash_ref = hash_ref(current_candidate, bound);
+                int collision_count_hash_ref = 0;
+                while ((c1[idx_hash_ref]) && c1[idx_hash_ref] != current_candidate) {
+                    idx_hash_ref = hash_ref(current_candidate + (++collision_count_hash_ref) * 51679, bound);
+                }
+                total_collision_count_hash_ref += collision_count_hash_ref;
+                if (!c1[idx_hash_ref]) {
+                    c1[idx_hash_ref] = current_candidate;
+                }
 
                 //
                 long idx_hashThomasWang = hashThomasWang(current_candidate, bound);
@@ -118,10 +115,19 @@ int main(int argc, char **argv) {
             }
         }
         printf("%ld,", n);
-        printf("%ld,", total_collision_count_hash_ref);
-        printf("%ld,", total_collision_count_hashThomasWang);
-        printf("%ld,", total_collision_count_hashLowBitOpt);
-        printf("%ld", total_collision_count_hash4shift);
-        printf("\n");
+        printf("hash_ref,");
+        printf("%ld\n", total_collision_count_hash_ref);
+
+        printf("%ld,", n);
+        printf("hashThomasWang,");
+        printf("%ld\n", total_collision_count_hashThomasWang);
+
+        printf("%ld,", n);
+        printf("hashLowBitOpt,");
+        printf("%ld\n", total_collision_count_hashLowBitOpt);
+
+        printf("%ld,", n);
+        printf("hash4shift,");
+        printf("%ld\n", total_collision_count_hash4shift);
     }
 }
