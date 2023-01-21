@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
         }
         if (k == 2) {
             checksum += i;
+            count++;
         }
     }
 
