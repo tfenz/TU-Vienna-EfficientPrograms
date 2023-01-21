@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     // calculate ramanujan candidates and numbers
     auto [candidates, ramanujans] = generate_ramanujan_numbers(N, &checksum);
     // estimate memory usage
-    auto memory_usage = sizeof(std::vector<unsigned long>) + (sizeof(unsigned long) * ramanujans.size());
+    auto memory_usage = sizeof(std::set<unsigned long>) + (sizeof(unsigned long) * ramanujans.size());
     memory_usage += sizeof(std::set<unsigned long>) + (sizeof(unsigned long) * candidates.size());
 
     std::cout << ramanujans.size() << " Ramanujan numbers up to " << N << ", checksum=" << checksum << std::endl;

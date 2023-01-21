@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
     long n = std::stol(argv[1], nullptr, 10);
     long bound = 1 << (long) (log((double) n) * (2.0 / (3.0 * log(2.0))));
     long *candidates = new long[bound];
-    long *counts = new long[bound];
+    char *counts = new char[bound];
     long i, j;
     long checksum = 0;
     long count_ramanujan = 0;
@@ -47,8 +47,11 @@ int main(int argc, char **argv) {
         }
     }
 //    printf("collisioncount: %ld\n", total_collision_count); //todo debug only
+    auto memory_usage = bound * (sizeof(long *));
+    memory_usage += bound * (sizeof(char *));
+
     printf("%ld Ramanujan numbers up to %ld, checksum=%ld\n size=%ld\n",
            count_ramanujan, n, checksum, bound);
-    printf("Memory usage: >=%ld\n", bound * (sizeof(long *)));
+    printf("Memory usage: >=%ld\n", memory_usage);
     return 0;
 }

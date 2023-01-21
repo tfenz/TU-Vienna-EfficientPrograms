@@ -12,9 +12,9 @@ unsigned long cube(unsigned long n) {
 
 using result_type = std::pair<std::unordered_set<unsigned long>, std::unordered_set<unsigned long>>;
 
-result_type generate_ramanujan_numbers(unsigned long n, unsigned long *checksum) {
+result_type generate_ramanujan_numbers(unsigned long n, unsigned long *checksum, long bound) {
     std::unordered_set<unsigned long> ramanujan_candidates;
-    long bound = 1 << (long) (log((double) n) * (2.0 / (3.0 * log(2.0))));
+
     ramanujan_candidates.reserve(bound);
     std::unordered_set<unsigned long> ramanujan_numbers;
 
@@ -37,11 +37,12 @@ int main(int argc, char *argv[]) {
     // parse argument for limit N
     auto N = std::stol(argv[1], nullptr, 10);
     unsigned long checksum = 0;
+    long bound = 1 << (long) (log((double) N) * (2.0 / (3.0 * log(2.0))));
     // calculate ramanujan candidates and numbers
-    auto [candidates, ramanujans] = generate_ramanujan_numbers(N, &checksum);
+    auto [candidates, ramanujans] = generate_ramanujan_numbers(N, &checksum, bound);
     // estimate memory usage
-    auto memory_usage = sizeof(std::vector<unsigned long>) + (sizeof(unsigned long) * ramanujans.size());
-    memory_usage += sizeof(std::set<unsigned long>) + (sizeof(unsigned long) * candidates.size()); // todo
+    auto memory_usage = sizeof(std::unordered_set<unsigned long>) + (sizeof(unsigned long) * ramanujans.size());
+    memory_usage += sizeof(std::unordered_set<unsigned long>) + (sizeof(unsigned long) * bound);
 
     std::cout << ramanujans.size() << " Ramanujan numbers up to " << N << ", checksum=" << checksum << std::endl;
     std::cout << "Memory usage: >=" << memory_usage;
