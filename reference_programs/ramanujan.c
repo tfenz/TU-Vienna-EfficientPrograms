@@ -84,7 +84,7 @@ int main(int argc, char **argv)
         occupation++;
       }
     }
-  printff("occupation=%ld, size=%ld\n",occupation,table_size);
+  printf("occupation=%ld, size=%ld\n",occupation,table_size);
   printf("%ld Ramanujan numbers up to %ld, checksum=%ld\n",count,n,checksum);
   printf("Memory usage: >=%ld\n",table_size*sizeof(struct node*)+occupation*sizeof(struct node));
   return 0;
