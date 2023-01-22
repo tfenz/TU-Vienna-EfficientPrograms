@@ -31,8 +31,5 @@ int main(int argc, char *argv[]) {
     auto memory_usage = sizeof(cache_set<ramanujan_candidate>) + (sizeof(ramanujan_candidate) * cache.get_size());
     std::cout << "Memory usage> >=" << memory_usage << std::endl;
 
-    std::cout << "===============================================" << std::endl;
-    std::pair<unsigned long, char> ts{10, '1'};
-    std::cout << "Size of pair: " << sizeof(ts) << std::endl;
     return 0;
 }
