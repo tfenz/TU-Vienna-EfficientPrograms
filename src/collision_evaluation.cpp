@@ -48,8 +48,8 @@ long hashTomWang2(long h, long bound) {
 int main(int argc, char **argv) {
 // print header
     printf("N,");
-    printf("name,");
-    printf("collissions\n");
+    printf("Name,");
+    printf("Collisions\n");
 
     for (long n = 1000000; n < 10000000000001; n *= 10) {
         long bound = 1 << (long) (log((double) n) * (2.0 / (3.0 * log(2.0))));
@@ -87,19 +87,19 @@ int main(int argc, char **argv) {
             }
         }
         printf("%ld,", n);
-        printf("hash_ref,");
+        printf("HF (reference),");
         printf("%ld\n", total_collision_count_hash_ref);
 
         printf("%ld,", n);
-        printf("hashThomasWang,");
+        printf("HF (v1),");
         printf("%ld\n", total_collision_count_hashThomasWang);
 
         printf("%ld,", n);
-        printf("hashLowBitOpt,");
+        printf("HF (v2),");
         printf("%ld\n", total_collision_count_hashLowBitOpt);
 
         printf("%ld,", n);
-        printf("hash4shift,");
+        printf("HF (v3),");
         printf("%ld\n", total_collision_count_hash4shift);
     }
 }
