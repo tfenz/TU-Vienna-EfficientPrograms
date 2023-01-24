@@ -30,7 +30,7 @@ size_t size_table(long n)
     return 1<<(long)(log((double)n)*(2.0/(3.0*log(2.0))));
 }
 
-size_t hash4(long h, size_t hash_size) {
+size_t hash_improved(long h, size_t hash_size) {
     h ^= (h >> 20) ^ (h >> 12);
     h = h ^ (h >> 7) ^ (h >> 4);
     return h % hash_size;

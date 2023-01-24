@@ -8,7 +8,7 @@ long cube(long n) {
 long hash_improved(long h, long bound) {
     h ^= (h >> 20) ^ (h >> 12);
     h = h ^ (h >> 7) ^ (h >> 4);
-    return h & bound;
+    return h % bound;
 }
 
 long hash(long h, long bound) {

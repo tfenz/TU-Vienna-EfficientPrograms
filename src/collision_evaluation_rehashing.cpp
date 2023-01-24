@@ -18,13 +18,13 @@ long hashV1(long h, long bound) {
     h ^= (h >> 6);
     h += ~(h << 11);
     h ^= (h >> 16);
-    return h & bound;
+    return h % bound;
 }
 
 long hashV2(long h, long bound) {
     h ^= (h >> 20) ^ (h >> 12);
     h = h ^ (h >> 7) ^ (h >> 4);
-    return h & bound;
+    return h % bound;
 }
 
 long hashV3(long h, long bound) {
@@ -32,17 +32,7 @@ long hashV3(long h, long bound) {
     h = h ^ (h >> 10);
     h = h + (h << 7);
     h = h ^ (h >> 13);
-    return h & bound;
-}
-
-long hashTomWang2(long h, long bound) {
-    h = (h + 0x7ed55d16) + (h << 12);
-    h = (h ^ 0xc761c23c) ^ (h >> 19);
-    h = (h + 0x165667b1) + (h << 5);
-    h = (h + 0xd3a2646c) ^ (h << 9);
-    h = (h + 0xfd7046c5) + (h << 3);
-    h = (h ^ 0xb55a4f09) ^ (h >> 16);
-    return h & bound;
+    return h % bound;
 }
 
 int main(int argc, char **argv) {
