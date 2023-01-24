@@ -81,8 +81,9 @@ cache_set<ramanujan_candidate>::cache_set(unsigned long ramanujan_limit_n,
                                           size_t avg_bucket_size) {
     this->ramanujan_limit_n = ramanujan_limit_n;
     this->avg_bucket_size = avg_bucket_size;
-    this->ramanujan_candidates_bound = std::exp(
-            std::log((double) this->ramanujan_limit_n) * (2.0 / 3.0)) / 2 + 100;
+    // this->ramanujan_candidates_bound = std::exp(
+    //         std::log((double) this->ramanujan_limit_n) * (2.0 / 3.0)) / 2 + 100;
+    this->ramanujan_candidates_bound = 1<<(long)(log((double)this->ramanujan_limit_n)*(2.0/(3.0*log(2.0))));
     // initiliaze cache's buckets
     this->init_cache_sections();
 }
