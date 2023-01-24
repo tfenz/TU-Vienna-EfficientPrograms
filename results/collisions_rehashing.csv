@@ -1,4 +1,4 @@
-N,hash_ref,hashThomasWang,hashLowBitOpt,hash4shift
+N,hash_ref,hashV1,hashV2,hashV3
 1000000,4463,1764,1901,1945
 10000000,31119,11309,11394,11583
 100000000,195622,73584,73565,73612

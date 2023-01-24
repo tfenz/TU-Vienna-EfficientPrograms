@@ -11,28 +11,28 @@ long hash_ref(long h, long bound) {
     return h & (bound - 1);
 }
 
-long hashThomasWang(long h, long bound) {
+long hashV1(long h, long bound) {
     h += ~(h << 15);
     h ^= (h >> 10);
     h += (h << 3);
     h ^= (h >> 6);
     h += ~(h << 11);
     h ^= (h >> 16);
-    return h % bound;
+    return h & bound;
 }
 
-long hashLowBitOpt(long h, long bound) {
+long hashV2(long h, long bound) {
     h ^= (h >> 20) ^ (h >> 12);
     h = h ^ (h >> 7) ^ (h >> 4);
-    return h % bound;
+    return h & bound;
 }
 
-long hash4shift(long h, long bound) {
+long hashV3(long h, long bound) {
     h = (h ^ 0xdeadbeef) + (h << 4);
     h = h ^ (h >> 10);
     h = h + (h << 7);
     h = h ^ (h >> 13);
-    return h % bound;
+    return h & bound;
 }
 
 long hashTomWang2(long h, long bound) {
@@ -69,9 +69,9 @@ int main(int argc, char **argv) {
                 long current_candidate = cube(i) + cube(j);
 
                 long idx_hash_ref = hash_ref(current_candidate, bound);
-                long idx_hashThomasWang = hashThomasWang(current_candidate, bound);
-                long idx_hashLowBitOpt = hashLowBitOpt(current_candidate, bound);
-                long idx_hash4shift = hash4shift(current_candidate, bound);
+                long idx_hashThomasWang = hashV1(current_candidate, bound);
+                long idx_hashLowBitOpt = hashV2(current_candidate, bound);
+                long idx_hash4shift = hashV3(current_candidate, bound);
 
                 if (c1[idx_hash_ref]) total_collision_count_hash_ref++;
                 else c1[idx_hash_ref] = 1;

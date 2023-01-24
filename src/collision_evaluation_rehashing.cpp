@@ -11,28 +11,28 @@ long hash_ref(long h, long bound) {
     return h & (bound - 1);
 }
 
-long hashThomasWang(long h, long bound) {
+long hashV1(long h, long bound) {
     h += ~(h << 15);
     h ^= (h >> 10);
     h += (h << 3);
     h ^= (h >> 6);
     h += ~(h << 11);
     h ^= (h >> 16);
-    return h % bound;
+    return h & bound;
 }
 
-long hashLowBitOpt(long h, long bound) {
+long hashV2(long h, long bound) {
     h ^= (h >> 20) ^ (h >> 12);
     h = h ^ (h >> 7) ^ (h >> 4);
-    return h % bound;
+    return h & bound;
 }
 
-long hash4shift(long h, long bound) {
+long hashV3(long h, long bound) {
     h = (h ^ 0xdeadbeef) + (h << 4);
     h = h ^ (h >> 10);
     h = h + (h << 7);
     h = h ^ (h >> 13);
-    return h % bound;
+    return h & bound;
 }
 
 long hashTomWang2(long h, long bound) {
@@ -42,7 +42,7 @@ long hashTomWang2(long h, long bound) {
     h = (h + 0xd3a2646c) ^ (h << 9);
     h = (h + 0xfd7046c5) + (h << 3);
     h = (h ^ 0xb55a4f09) ^ (h >> 16);
-    return h % bound;
+    return h & bound;
 }
 
 int main(int argc, char **argv) {
@@ -80,10 +80,10 @@ int main(int argc, char **argv) {
                 }
 
                 //
-                long idx_hashThomasWang = hashThomasWang(current_candidate, bound);
+                long idx_hashThomasWang = hashV1(current_candidate, bound);
                 int collision_count_hashThomasWang = 0;
                 while ((c2[idx_hashThomasWang]) && c2[idx_hashThomasWang] != current_candidate) {
-                    idx_hashThomasWang = hashThomasWang(current_candidate + (++collision_count_hashThomasWang) * 51679, bound);
+                    idx_hashThomasWang = hashV1(current_candidate + (++collision_count_hashThomasWang) * 51679, bound);
                 }
                 total_collision_count_hashThomasWang += collision_count_hashThomasWang;
                 if (!c2[idx_hashThomasWang]) {
@@ -91,10 +91,10 @@ int main(int argc, char **argv) {
                 }
 
                 //
-                long idx_hashLowBitOpt = hashLowBitOpt(current_candidate, bound);
+                long idx_hashLowBitOpt = hashV2(current_candidate, bound);
                 int collision_hashLowBitOpt = 0;
                 while ((c3[idx_hashLowBitOpt]) && c3[idx_hashLowBitOpt] != current_candidate) {
-                    idx_hashLowBitOpt = hashLowBitOpt(current_candidate + (++collision_hashLowBitOpt) * 51679, bound);
+                    idx_hashLowBitOpt = hashV2(current_candidate + (++collision_hashLowBitOpt) * 51679, bound);
                 }
                 total_collision_count_hashLowBitOpt += collision_hashLowBitOpt;
                 if (!c3[idx_hashLowBitOpt]) {
@@ -103,10 +103,10 @@ int main(int argc, char **argv) {
 
 
                 //
-                long idx_hash4shift = hash4shift(current_candidate, bound);
+                long idx_hash4shift = hashV3(current_candidate, bound);
                 int collision_hash4shift = 0;
                 while ((c4[idx_hash4shift]) && c4[idx_hash4shift] != current_candidate) {
-                    idx_hash4shift = hash4shift(current_candidate + (++collision_hash4shift) * 51679, bound);
+                    idx_hash4shift = hashV3(current_candidate + (++collision_hash4shift) * 51679, bound);
                 }
                 total_collision_count_hash4shift += collision_hash4shift;
                 if (!c4[idx_hash4shift]) {
