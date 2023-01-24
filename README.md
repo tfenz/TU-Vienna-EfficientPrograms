@@ -2,6 +2,8 @@
 
 Assignment for lecture efficient programs WS22
 
+slides:https://docs.google.com/presentation/d/1CIonbzky8N8RamLZlpRqeCJINjKJWRAQY0UGiTpRfdM/edit?usp=sharing
+
 ## Installation and Setup
 
 ### Cmake installation on TU server
