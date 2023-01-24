@@ -21,10 +21,20 @@ long hashV1(long h, long bound) {
     return h % bound;
 }
 
+long hashV1_mod(long h, long bound) {
+    h += ~(h << 15);
+    h ^= (h >> 10);
+    h += (h << 3);
+    h ^= (h >> 6);
+    h += ~(h << 11);
+    h ^= (h >> 16);
+    return h & (bound - 1);
+}
+
 long hashV2(long h, long bound) {
     h ^= (h >> 20) ^ (h >> 12);
     h = h ^ (h >> 7) ^ (h >> 4);
-    return h % bound;
+    return h & (bound - 1);
 }
 
 long hashV3(long h, long bound) {
@@ -32,11 +42,17 @@ long hashV3(long h, long bound) {
     h = h ^ (h >> 10);
     h = h + (h << 7);
     h = h ^ (h >> 13);
-    return h % bound;
+    return h & (bound - 1);
 }
 
 int main(int argc, char **argv) {
 // print header
+    long bound = 1 << (long) (log((double) 1000000000001) * (2.0 / (3.0 * log(2.0))));
+    long candidate = 2165156316515689311;
+    printf("%ld\n",hashV1(candidate, bound));
+    printf("%ld",hashV1_mod(candidate, bound));
+    return 0;
+
     printf("N,");
     printf("Name,");
     printf("Collisions\n");

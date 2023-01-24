@@ -18,13 +18,13 @@ long hashV1(long h, long bound) {
     h ^= (h >> 6);
     h += ~(h << 11);
     h ^= (h >> 16);
-    return h % bound;
+    return h & (bound - 1);
 }
 
 long hashV2(long h, long bound) {
     h ^= (h >> 20) ^ (h >> 12);
     h = h ^ (h >> 7) ^ (h >> 4);
-    return h % bound;
+    return h & (bound - 1);
 }
 
 long hashV3(long h, long bound) {
@@ -32,7 +32,7 @@ long hashV3(long h, long bound) {
     h = h ^ (h >> 10);
     h = h + (h << 7);
     h = h ^ (h >> 13);
-    return h % bound;
+    return h & (bound - 1);
 }
 
 

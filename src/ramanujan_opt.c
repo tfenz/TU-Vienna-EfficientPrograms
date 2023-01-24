@@ -33,7 +33,7 @@ size_t size_table(long n)
 size_t hash_improved(long h, size_t hash_size) {
     h ^= (h >> 20) ^ (h >> 12);
     h = h ^ (h >> 7) ^ (h >> 4);
-    return h % hash_size;
+    return  h & (hash_size - 1);
 }
 
 size_t hash(long key, size_t hash_size)
